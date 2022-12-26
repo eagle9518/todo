@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from account import views as account_views
 from agenda import views as agenda_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', agenda_views.agenda, name='agenda')
+    path('', agenda_views.agenda, name='agenda'),
+
+    path('signup/', account_views.signup, name='signup'),
 ]
