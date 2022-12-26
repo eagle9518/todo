@@ -5,13 +5,19 @@
     <meta charset="UTF-8">
     {% block Title %}<title>TODOs</title>{% endblock %}
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'basic.css' %}">
 </head>
 <body>
 {% block body %}
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'agenda' %}">TODOs</a>
         {% if user.is_authenticated %}
-            {{ user.username }}
+            <div class="dropdown">
+                <button class="dropbtn">Hello {{ user.username }}</button>
+                <div class="dropdown-content">
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
         {% else %}
             <form class="inline">
                 <a class="btn btn-light" type="button" href="{% url 'login' %}">Login</a>
