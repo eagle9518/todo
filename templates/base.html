@@ -8,13 +8,13 @@
 </head>
 <body>
 {% block body %}
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'agenda' %}">TODOs</a>
         {% if user.is_authenticated %}
-
+            {{ user.username }}
         {% else %}
             <form class="inline">
-                <a class="btn btn-light" type="button">Login</a>
+                <a class="btn btn-light" type="button" href="{% url 'login' %}">Login</a>
                 <a class="btn btn-success" type="button" href="{% url 'signup' %}">Signup</a>
             </form>
         {% endif %}
