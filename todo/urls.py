@@ -21,8 +21,10 @@ from agenda import views as agenda_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', agenda_views.agenda, name='agenda'),
+    path('', agenda_views.home, name='home'),
 
     path('signup/', account_views.signup, name='signup'),
     path('accounts/', include('django.contrib.auth.urls')),
+
+    path('todos/', agenda_views.todos, name='todos'),
 ]

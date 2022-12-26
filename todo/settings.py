@@ -37,7 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
+    'agenda',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -124,5 +129,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR), 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'agenda'
-LOGOUT_REDIRECT_URL = 'agenda'
+LOGIN_REDIRECT_URL = 'todos'
+LOGOUT_REDIRECT_URL = 'home'
