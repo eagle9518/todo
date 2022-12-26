@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block Title %}<title>TODOs</title>{% endblock %}
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+</head>
+<body>
+{% block body %}
+    {% block content %}
+
+    {% endblock %}
+{% endblock %}
+</body>
+</html>
+<script rel="script" src="{% static "jquery.js" %}"></script>
+<script rel="script" src="{% static 'bootstrap.bundle.min.js' %}"></script>
