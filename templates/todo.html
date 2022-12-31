@@ -1,5 +1,35 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block Title %} TODOs {% endblock %}
+
+{% block style %} {% endblock %}
 
 {% block content %}
     <h2>TODOS</h2>
+    <hr>
+    <button class="add_date_button">Add Date</button>
+    {% for dates in all_dates %}
+        <table id="{{ dates.date | date:"Y-m-d" }}">
+            <thead>
+            <tr>
+                <th>{{ dates.date }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for todo in dates.todo.all %}
+                <tr>
+                    <td>{{ todo.todo }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <form id="{{ dates.date | date:"Y-m-d" }}">
+            <input class="add_todo_text" type="text"/>
+            <input class="add_todo_button" type="button" value="+"/>
+        </form>
+    {% endfor %}
+
 {% endblock %}
+{% block script %}
+    <script rel="script" src="{% static "todo.js" %}"></script>{% endblock %}

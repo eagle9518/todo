@@ -27,4 +27,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
 
     path('todos/', agenda_views.todos, name='todos'),
+    path('todos/add_todo/', agenda_views.add_todo),
 ]
