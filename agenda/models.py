@@ -13,3 +13,4 @@ class Date(models.Model):
 class Todo(models.Model):
     date = models.ForeignKey(Date, on_delete=models.CASCADE, related_name='todo')
     todo = models.CharField(max_length=256)
+

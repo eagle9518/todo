@@ -3,12 +3,18 @@
 
 {% block Title %} TODOs {% endblock %}
 
-{% block style %} {% endblock %}
+{% block style %} <link rel="stylesheet" href="{% static "datepicker.css" %}">{% endblock %}
 
 {% block content %}
     <h2>TODOS</h2>
     <hr>
-    <button class="add_date_button">Add Date</button>
+    <form method="post">
+        {% csrf_token %}
+        <label>
+            <input id="datepicker" name="add_date" autocomplete="off">
+        </label>
+        <button type="submit">+</button>
+    </form>
     {% for dates in all_dates %}
         <table id="{{ dates.date | date:"Y-m-d" }}">
             <thead>
@@ -24,12 +30,16 @@
             {% endfor %}
             </tbody>
         </table>
-        <form id="{{ dates.date | date:"Y-m-d" }}">
-            <input class="add_todo_text" type="text"/>
+        <form class="add_todo_form" id="{{ dates.date | date:"Y-m-d" }}">
+            <label>
+                <input class="add_todo_text" type="text"/>
+            </label>
             <input class="add_todo_button" type="button" value="+"/>
         </form>
     {% endfor %}
 
 {% endblock %}
 {% block script %}
-    <script rel="script" src="{% static "todo.js" %}"></script>{% endblock %}
+    <script rel="script" src="{% static "datepicker.js" %}"></script>
+    <script rel="script" src="{% static "todo.js" %}"></script>
+{% endblock %}

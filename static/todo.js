@@ -1,3 +1,4 @@
+//Gets csrftoken -> official Django docs
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -13,12 +14,18 @@ function getCookie(name) {
     return cookieValue;
 }
 
-const add_todo = document.getElementsByTagName('form');
+//Renders Datepicker
+$(function () {
+    $("#datepicker").datepicker({format: 'yyyy-mm-dd'});
+});
+
+//Sends Added Todos to Server
+const add_todo = document.getElementsByClassName('add_todo_form');
 for (let date of add_todo) {
-    console.log(date[0].value)
-    date[1].addEventListener('click', function (){
+    date[1].addEventListener('click', function () {
         fetch_todo_from_server(date.id, date[0].value);
         insertTodo(date.id, date[0].value);
+        date[0].value = "";
     })
 }
 
@@ -41,7 +48,7 @@ function fetch_todo_from_server(date, todo) {
         })
 }
 
-function insertTodo(date, todo){
+function insertTodo(date, todo) {
     let table = document.getElementById(date);
     let row = table.insertRow(-1);
     let insertedTodo = row.insertCell(0);
