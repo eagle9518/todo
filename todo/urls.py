@@ -28,4 +28,5 @@ urlpatterns = [
 
     path('todos/', agenda_views.todos, name='todos'),
     path('todos/add_todo/', agenda_views.add_todo),
+    path('todos/remove_todo/', agenda_views.remove_todo),
 ]

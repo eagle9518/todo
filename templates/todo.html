@@ -10,22 +10,24 @@
     <hr>
     <form method="post">
         {% csrf_token %}
-        <label>
-            <input id="datepicker" name="add_date" autocomplete="off">
-        </label>
+        <label for="datepicker">Add Date:</label>
+        <input id="datepicker" name="add_date" autocomplete="off">
         <button type="submit">+</button>
     </form>
     {% for dates in all_dates %}
         <table id="{{ dates.date | date:"Y-m-d" }}">
             <thead>
             <tr>
-                <th>{{ dates.date }}</th>
+                <th><h4>{{ dates.date }}</h4></th>
             </tr>
             </thead>
             <tbody>
             {% for todo in dates.todo.all %}
                 <tr>
-                    <td>{{ todo.todo }}</td>
+                    <td>
+                        <button onclick="remove_todo_from_server('{{ dates.date | date:"Y-m-d" }}', '{{ todo.todo }}'); deleteRow(this);">X</button>
+                        {{ todo.todo }}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

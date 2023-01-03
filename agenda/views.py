@@ -26,7 +26,7 @@ def todos(request):
         fetch_current_date(request, added_date)
 
     fetch_current_date(request)
-    all_dates = Date.objects.annotate(timediff=current_date - F('date')).order_by('timediff')
+    all_dates = Date.objects.annotate(timediff=current_date - F('date')).order_by('timediff').filter(user=request.user)
 
     return render(request, 'todo.html', {'all_dates': all_dates})
 
@@ -40,9 +40,28 @@ def add_todo(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         new_task = json.load(request)
         current_date_object = Date.objects.get(user=request.user, date=new_task['task_date'])
-        Todo.objects.create(todo=new_task['task'], date=current_date_object)
-
-        response = {'confirmation': "Success"}
+        if not Todo.objects.filter(todo=new_task['task'], date=current_date_object).exists():
+            Todo.objects.create(todo=new_task['task'], date=current_date_object)
+            response = {'confirmation': "Successfully Added"}
+        else:
+            response = {'confirmation': "Task Already Exists"}
         return JsonResponse(response)
 
     return redirect('todos')
+
+
+def remove_todo(request):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        deleted_task = json.load(request)
+        current_date_object = Date.objects.get(user=request.user, date=deleted_task['task_date'])
+        Todo.objects.get(todo=deleted_task['task'], date=current_date_object).delete()
+
+        response = {'confirmation': "Successfully Deleted"}
+        return JsonResponse(response)
+
+    return redirect('todos')
+
+
+# Wipes Data for User (Testing Purposes)
+def wipe(request):
+    Date.objects.filter(user=request.user).delete()
